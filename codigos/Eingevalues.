@@ -1,0 +1,29 @@
+#Jacobi
+Algoritmo 21: Diagonalización de A ∈ R^{2×2} simétrica
+Entrada: A ∈ R^{2×2} simétrica. 
+Salidas: c, s ∈ R.
+
+Paso 0: Si A_12 = 0, definir c = 1 y s = 0 e ir al Paso 2.
+Paso 1: Definir 
+           τ = (A_22 - A_11) / (2 A_12)
+           t = -1 / (τ + √(τ² + 1))  si τ ≥ 0
+               1 / (-τ + √(τ² + 1))  si τ < 0
+           c = 1 / √(1 + t²)
+           s = t * c
+Paso 2: Retornar c y s.
+
+Algoritmo 22: Método de Jacobi para diagonalización
+Entrada: A ∈ R^{n×n} simétrica, ε > 0 y m ∈ N.
+Salidas: B, Q ∈ R^{n×n} t.q. B = Q^T A Q con off(B) ≤ ε.
+
+Paso 0: Definir Q = I.
+Paso 1: Para k = 1, ..., m:
+           Si off(A) ≤ ε ir al Paso 2.
+           Sino:
+               Definir I = {i, j} t.q. |A_ij| = max_{r≠s} |A_rs|
+               J = [ c  -s ]
+                   [ s   c ] aplicando Algoritmo 21 a A_{I,I}
+               A_{I,*} ← J^T * A_{I,*}
+               A_{*,I} ← A_{*,I} * J
+               Q_{*,I} ← Q_{*,I} * J
+Paso 2: Retornar B = A y Q.
