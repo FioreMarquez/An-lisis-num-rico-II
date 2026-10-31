@@ -27,3 +27,29 @@ Paso 1: Para k = 1, ..., m:
                A_{*,I} ← A_{*,I} * J
                Q_{*,I} ← Q_{*,I} * J
 Paso 2: Retornar B = A y Q.
+
+
+
+#Metodo QR
+"""The QR iteration is an iterative method based on a similarity transformation of A to
+a matrix T for which it is easier to compute its eigenvalues."""
+
+#we will use the QR factorization of Python.
+
+def basic QR iteration(A, tol = 1.e-6, maxit = 100):
+ # initialize the parameters
+ iteration = 0
+ error = tol+1.0
+ T = A.copy()
+ #set first approximation of eigenvalues
+ eigs = np.diag(T)
+ while (error > tol and iteration < maxit):
+ #extract the diagonal entries of T
+ eig0=eigs
+ Q, R = npl.qr(T)
+ T = np.dot(R,Q)
+ #extract the new diagonal entries
+ eigs = np.diag(T)
+ error = npl.norm(eigs-eig0)
+ iteration = iteration + 1
+ print('number of iterations required = ',iteration)
